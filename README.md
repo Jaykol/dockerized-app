@@ -1,3 +1,5 @@
+[![Docker Build](https://github.com/Jaykol/dockerized-app/actions/workflows/docker-build.yml/badge.svg)](https://github.com/Jaykol/dockerized-app/actions/workflows/docker-build.yml)
+
 # Dockerized Three-Tier App
 
 A production-ready containerized web application built with Flask, Nginx, and PostgreSQL — orchestrated with Docker Compose.
