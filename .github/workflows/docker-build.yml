@@ -1,0 +1,37 @@
+name: Docker Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: echo "DB_PASSWORD=testpassword123" > .env
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Start services
+        run: docker compose up -d
+
+      - name: Wait for services
+        run: sleep 15
+
+      - name: Test health endpoint
+        run: |
+          curl --fail http://localhost/health
+
+      - name: Test task creation
+        run: |
+          curl --fail -X POST https://localhost/tasks \
+            -H "Content-Type: application/json" \
+            -d '{"title": "CI test task"}'
+
+      - name: Test task retrieval
+        run: curl --fail http://localhost/tasks
+
+      - name: Stop services
+        run: docker compose down
