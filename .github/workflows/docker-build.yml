@@ -26,7 +26,7 @@ jobs:
 
       - name: Test task creation
         run: |
-          curl --fail -X POST https://localhost/tasks \
+          curl --fail -X POST http://localhost/tasks \
             -H "Content-Type: application/json" \
             -d '{"title": "CI test task"}'
 
