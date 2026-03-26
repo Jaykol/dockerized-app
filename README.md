@@ -87,3 +87,4 @@ curl http://localhost/tasks
 ## Author
 
 Jesutofunmi Ajekola — [GitHub](https://github.com/Jaykol) | [LinkedIn](https://www.linkedin.com/in/jesutofunmij)
+# CI/CD Pipeline: test -> build -> push -> deploy
