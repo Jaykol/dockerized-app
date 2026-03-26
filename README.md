@@ -1,3 +1,4 @@
+![CI/CD Pipeline](https://github.com/Jaykol/dockerized-app/actions/workflows/docker-build.yml/badge.svg)
 [![Docker Build](https://github.com/Jaykol/dockerized-app/actions/workflows/docker-build.yml/badge.svg)](https://github.com/Jaykol/dockerized-app/actions/workflows/docker-build.yml)
 
 # Dockerized Three-Tier App
@@ -88,3 +89,24 @@ curl http://localhost/tasks
 
 Jesutofunmi Ajekola — [GitHub](https://github.com/Jaykol) | [LinkedIn](https://www.linkedin.com/in/jesutofunmij)
 # CI/CD Pipeline: test -> build -> push -> deploy
+
+## CI/CD Pipeline
+
+Every push to `main` triggers a three-stage automated pipeline:
+```
+test → build-and-push → deploy
+```
+
+- **test** — spins up the full stack and runs API endpoint tests
+- **build-and-push** — builds the Docker image and pushes to Docker Hub with two tags: `latest` and the commit SHA
+- **deploy** — SSHs into EC2, pulls the new image, and restarts the container
+
+### Pipeline triggers
+- `push` to `main` — runs all three jobs
+- `pull_request` to `main` — runs `test` only (no deployment)
+
+## Infrastructure
+
+- **EC2** — Amazon Linux 2023, t2.micro, runs Flask + Nginx containers
+- **RDS** — PostgreSQL 15, db.t3.micro, private subnet (no public access)
+- **Docker Hub** — image registry at `jaykol/dockerized-app`
