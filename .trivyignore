@@ -1,0 +1,9 @@
+# CVE-2026-23949: jaraco.context path traversal
+# Affected component is vendored inside setuptools internals, not directly
+# used by application code. Not exploitable in this context.
+CVE-2026-23949
+
+# CVE-2026-24049: wheel privilege escalation
+# Affected version is setuptools-vendored wheel, not the application wheel
+# package (0.46.2 installed). Not reachable via application attack surface.
+CVE-2026-24049

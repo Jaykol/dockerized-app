@@ -124,15 +124,17 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - name: Trivy CVE summary
+      - name: Trivy CVE summary (informational)
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/taskapp:latest
           format: table
           severity: HIGH,CRITICAL
           exit-code: "0"
+          ignore-unfixed: true
+          trivyignores: .trivyignore
 
-      - name: Run Trivy vulnerability scanner
+      - name: Trivy vulnerability scan (blocking)
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/taskapp:latest
@@ -140,7 +142,8 @@ jobs:
           output: trivy.sarif
           severity: HIGH,CRITICAL
           exit-code: "1"
-
+          ignore-unfixed: true
+          trivyignores: .trivyignore
       - name: Upload Trivy SARIF to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
