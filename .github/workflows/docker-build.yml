@@ -147,7 +147,6 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true
-          vuln-type: "os, library"
           scanners: vuln
           trivyignores: .trivyignore
 
